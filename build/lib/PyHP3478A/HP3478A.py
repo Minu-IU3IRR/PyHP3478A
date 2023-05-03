@@ -1,4 +1,7 @@
 class HP3478A:
+    """HP3478A made simple with Python and the AR488 project!
+    use the PyAR488 module to comunicate with the AR488 board and make you lab bench smart
+    -> written by Minu"""
     from PyAR488 import AR488
 
     class Exceptions:
@@ -116,7 +119,7 @@ class HP3478A:
 
     def get_status_byte(self):
         """returns the status byte of the instrument as an int or a dict"""
-        response = self.interface.prologix_spoll(self.address)
+        response = self.interface.spoll(self.address)
         try:
             response = int(response)
         except ValueError:
