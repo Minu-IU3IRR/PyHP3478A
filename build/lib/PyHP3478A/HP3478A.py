@@ -3,6 +3,7 @@ class HP3478A:
     use the PyAR488 module to comunicate with the AR488 board and make you lab bench smart
     -> written by Minu"""
     from PyAR488 import AR488
+    from time import sleep
 
     class Exceptions:
         class StatusByteException(Exception):
@@ -128,9 +129,11 @@ class HP3478A:
         return self.StatusByte(response)
     
     def measure(self, new_measurement:Measure._MeasurementFunction, send:bool = True):
+        """set measurement with meter.measure(meter.Measurements.x) where x can be I_DC, V_AC ecc..."""
         command_string = new_measurement.code
         if send:
             self._write(command_string)
+            self.sleep(1)
         return command_string
     
     def trigger(self, new_trigger:Trigger._TriggerFunction, send:bool = True):
